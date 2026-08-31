@@ -1,0 +1,5 @@
+desktop.ini
+Thumbs.db
+node_modules/
+dist/
+.env
