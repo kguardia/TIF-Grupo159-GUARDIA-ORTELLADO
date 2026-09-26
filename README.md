@@ -20,6 +20,9 @@ Trabajo Final Integrador — Tecnicatura Universitaria en Programación (UTN)
   * [Requerimientos no funcionales](#requerimientos-no-funcionales)
   * [Actividad 2: Definición del stack tecnológico](#actividad-2-definición-del-stack-tecnológico)
   * [Actividad 3: Refinamiento de propuesta y análisis de viabilidad asistida por IA](#actividad-3-refinamiento-de-propuesta-y-análisis-de-viabilidad-asistida-por-ia)
+  * [2) Diseño y Módulos (2ª Entrega — Condición de Regular)](#2-diseño-y-módulos-2ª-entrega--condición-de-regular)
+  *[Diseño de la base de datos](#diseño-de-la-base-de-datos)
+  *[Módulos a desarrollar](#módulos-a-desarrollar)
 
 \---
 
@@ -266,4 +269,217 @@ Se relevó el panorama real en Argentina/CABA para no partir de supuestos:
 * **Técnica:** alta. El stack (NestJS, MySQL, JS vanilla, Railway) ya es conocido por el equipo, lo que reduce el riesgo de bloqueo por curva de aprendizaje.
 * **Operativa:** media. El mayor riesgo no es técnico sino de contenido: conseguir veterinarias/rescatistas reales que quieran figurar en el directorio lleva tiempo que excede el plazo académico. Recomendación: arrancar con datos de ejemplo y dejar la carga real como tarea de adopción posterior al TFI.
 * **Temporal:** viable para esta entrega (documento + repo en 2 días es alcanzable para 2-3 personas). Para el desarrollo completo, el cronograma de 12 semanas planteado es razonable siempre que se respete el "no alcance" definido — si se intenta meter la pasarela de pago real dentro del mismo plazo, el riesgo de incumplir sube bastante.
+
+
+#### Diagrama entidad-relación (DER)
+
+```mermaid
+erDiagram
+    ZONA ||--o{ CASO : ubica
+    ZONA ||--o{ DIRECTORIO_CONTACTO : ubica
+    USUARIO ||--o{ CASO : modera
+    USUARIO ||--o{ HISTORIAL_MODERACION : registra
+    USUARIO ||--o{ DONACION : actualiza
+    CASO ||--o{ CASO_FOTO : tiene
+    CASO ||--o{ HISTORIAL_MODERACION : genera
+    CASO ||--o| DONACION : recibe
+
+    ZONA {
+        int id PK
+        string nombre
+    }
+    USUARIO {
+        int id PK
+        string nombre
+        string email
+        string password_hash
+        string rol
+        boolean activo
+    }
+    CASO {
+        int id PK
+        string tipo_animal
+        string descripcion
+        string nivel_urgencia
+        string tipo_ayuda
+        string estado
+        string contacto_publicante
+        int zona_id FK
+        int moderador_id FK
+        string motivo_rechazo
+        datetime fecha_publicacion
+        datetime fecha_moderacion
+    }
+    CASO_FOTO {
+        int id PK
+        int caso_id FK
+        string url
+        int orden
+    }
+    HISTORIAL_MODERACION {
+        int id PK
+        int caso_id FK
+        int usuario_id FK
+        string accion
+        string motivo
+        datetime fecha
+    }
+    DIRECTORIO_CONTACTO {
+        int id PK
+        string tipo
+        string nombre
+        string telefono
+        int zona_id FK
+        boolean atencion_24hs
+        string especialidad
+    }
+    DONACION {
+        int id PK
+        int caso_id FK
+        decimal monto_objetivo
+        decimal monto_recaudado
+        string alias_donacion
+        int actualizado_por FK
+        datetime fecha_actualizacion
+    }
+```
+
+**Notas de cardinalidad:** `moderador_id` en `CASO` es nulo hasta que un moderador toma el caso (por eso se simplifica como relación uno-a-muchos, aunque el caso pueda no tener moderador asignado todavía). `DONACION` es opcional por caso — solo existe si el caso requiere ayuda económica registrada, de ahí la cardinalidad cero-o-uno del lado de `DONACION`.
+
+#### Esquema relacional (MySQL)
+
+| Tabla | Columna | Tipo | Restricción |
+|---|---|---|---|
+| **zona** | id | INT | PK, AUTO_INCREMENT |
+| | nombre | VARCHAR(80) | NOT NULL, UNIQUE |
+| **usuario** | id | INT | PK, AUTO_INCREMENT |
+| | nombre | VARCHAR(120) | NOT NULL |
+| | email | VARCHAR(160) | NOT NULL, UNIQUE |
+| | password_hash | VARCHAR(255) | NOT NULL |
+| | rol | ENUM('moderador','administrador') | NOT NULL |
+| | activo | BOOLEAN | NOT NULL, DEFAULT true |
+| **caso** | id | INT | PK, AUTO_INCREMENT |
+| | tipo_animal | VARCHAR(60) | NOT NULL |
+| | descripcion | TEXT | NOT NULL |
+| | nivel_urgencia | ENUM('critica','media','baja') | NOT NULL |
+| | tipo_ayuda | ENUM('veterinaria','traslado','alimento','otro') | NOT NULL |
+| | estado | ENUM('pendiente','en_revision','aprobado','rechazado','resuelto') | NOT NULL, DEFAULT 'pendiente' |
+| | contacto_publicante | VARCHAR(160) | NOT NULL |
+| | zona_id | INT | FK → zona.id, NOT NULL |
+| | moderador_id | INT | FK → usuario.id, NULL |
+| | motivo_rechazo | VARCHAR(255) | NULL |
+| | fecha_publicacion | DATETIME | NOT NULL, DEFAULT NOW() |
+| | fecha_moderacion | DATETIME | NULL |
+| **caso_foto** | id | INT | PK, AUTO_INCREMENT |
+| | caso_id | INT | FK → caso.id, NOT NULL |
+| | url | VARCHAR(500) | NOT NULL |
+| | orden | INT | NOT NULL, DEFAULT 1 |
+| **historial_moderacion** | id | INT | PK, AUTO_INCREMENT |
+| | caso_id | INT | FK → caso.id, NOT NULL |
+| | usuario_id | INT | FK → usuario.id, NOT NULL |
+| | accion | ENUM('aprobado','rechazado','en_revision') | NOT NULL |
+| | motivo | VARCHAR(255) | NULL |
+| | fecha | DATETIME | NOT NULL, DEFAULT NOW() |
+| **directorio_contacto** | id | INT | PK, AUTO_INCREMENT |
+| | tipo | ENUM('veterinaria','rescatista') | NOT NULL |
+| | nombre | VARCHAR(160) | NOT NULL |
+| | telefono | VARCHAR(40) | NOT NULL |
+| | zona_id | INT | FK → zona.id, NOT NULL |
+| | atencion_24hs | BOOLEAN | NOT NULL, DEFAULT false |
+| | especialidad | VARCHAR(120) | NULL |
+| **donacion** | id | INT | PK, AUTO_INCREMENT |
+| | caso_id | INT | FK → caso.id, NOT NULL, UNIQUE |
+| | monto_objetivo | DECIMAL(10,2) | NULL |
+| | monto_recaudado | DECIMAL(10,2) | NOT NULL, DEFAULT 0 |
+| | alias_donacion | VARCHAR(80) | NOT NULL |
+| | actualizado_por | INT | FK → usuario.id, NOT NULL |
+| | fecha_actualizacion | DATETIME | NOT NULL, DEFAULT NOW() |
+
+#### Normalización aplicada
+
+El esquema está normalizado (3FN): no hay grupos repetitivos (las fotos de un caso no se guardan como una lista dentro de una columna, sino en `caso_foto`), no hay datos derivables o redundantes entre tablas, y cada atributo no clave depende únicamente de la clave primaria de su tabla. `zona` existe como catálogo propio en lugar de texto libre repetido en `caso` y `directorio_contacto`, lo que evita inconsistencias y sostiene RNF04 (poder sumar zonas o ciudades sin rediseñar el modelo).
+
+### Módulos a desarrollar
+
+#### Arquitectura en capas
+
+Se aplican los cuatro principios trabajados en la cátedra: **bajo acoplamiento y alta cohesión**, **separación de responsabilidades (SoC)** y **principio de única responsabilidad (SRP)**, organizados en la arquitectura en capas estándar de NestJS:
+
+1. **Presentación:** controllers — reciben la request HTTP y devuelven la respuesta, sin lógica de negocio.
+2. **Aplicación:** services de orquestación — coordinan qué módulo hace qué y en qué orden, sin contener las reglas de negocio en sí.
+3. **Dominio:** reglas de negocio — qué estados puede tener un caso, quién puede aprobar, cómo se calcula el monto recaudado.
+4. **Infraestructura:** acceso a MySQL (TypeORM/Prisma), JWT/bcrypt para autenticación, configuración de Railway.
+
+Ejemplo concreto de bajo acoplamiento aplicado al proyecto: cuando `ModeracionModule` necesita saber si un usuario tiene rol de moderador, **no accede directamente a la tabla `usuario`** — le pregunta a `UsuariosModule` a través de su servicio, y recibe sólo verdadero/falso. Así, si mañana cambia cómo se gestionan los roles, `ModeracionModule` no se ve afectado.
+
+#### Listado de módulos
+
+| Módulo (NestJS) | Capa principal | Responsabilidad (alta cohesión) | RF/RNF que cubre | Dependencias (bajo acoplamiento) |
+|---|---|---|---|---|
+| `AuthModule` | Presentación / Infraestructura | Login de moderador/administrador, emisión y validación de JWT, guards por rol | RNF02 | `UsuariosModule` (vía servicio) |
+| `UsuariosModule` | Dominio | Alta de usuarios, gestión de roles (moderador/administrador) | RF09 | Ninguna (módulo base) |
+| `ZonasModule` | Dominio | Catálogo de zonas/barrios de CABA, extensible a otras ciudades | RNF04 | Ninguna (módulo base) |
+| `CasosModule` | Dominio / Aplicación | Publicación de casos sin registro, consulta pública filtrable, carga de fotos, generación de enlace compartible | RF01, RF05, RF08 | `ZonasModule` |
+| `ModeracionModule` | Aplicación | Cola de revisión, aprobar/rechazar/marcar en revisión, registro de historial | RF02, RF03, RF04 | `CasosModule`, `UsuariosModule` (vía servicio) |
+| `DirectorioModule` | Dominio | Alta, edición y consulta de veterinarias/rescatistas por zona | RF06 | `ZonasModule` |
+| `DonacionesModule` | Dominio | Registro y actualización manual de monto objetivo/recaudado por caso | RF07 | `CasosModule`, `UsuariosModule` (vía servicio) |
+
+#### Diagrama de dependencias entre módulos
+
+```mermaid
+graph TD
+    subgraph Presentacion["Presentación"]
+        AuthController
+        CasosController
+        ModeracionController
+        DirectorioController
+        DonacionesController
+    end
+
+    subgraph Aplicacion["Aplicación"]
+        AuthService
+        CasosService
+        ModeracionService
+        DirectorioService
+        DonacionesService
+    end
+
+    subgraph Dominio["Dominio"]
+        UsuariosDominio["Usuarios y roles"]
+        ZonasDominio["Zonas"]
+        CasosDominio["Reglas de Casos"]
+        DirectorioDominio["Reglas de Directorio"]
+        DonacionesDominio["Reglas de Donaciones"]
+    end
+
+    subgraph Infraestructura["Infraestructura"]
+        MySQLRepo["Repositorios MySQL (TypeORM)"]
+        JWTAuth["JWT / bcrypt"]
+    end
+
+    AuthController --> AuthService
+    CasosController --> CasosService
+    ModeracionController --> ModeracionService
+    DirectorioController --> DirectorioService
+    DonacionesController --> DonacionesService
+
+    AuthService --> UsuariosDominio
+    AuthService --> JWTAuth
+    CasosService --> CasosDominio
+    CasosService --> ZonasDominio
+    ModeracionService --> CasosDominio
+    ModeracionService --> UsuariosDominio
+    DirectorioService --> DirectorioDominio
+    DirectorioService --> ZonasDominio
+    DonacionesService --> DonacionesDominio
+    DonacionesService --> CasosDominio
+
+    UsuariosDominio --> MySQLRepo
+    ZonasDominio --> MySQLRepo
+    CasosDominio --> MySQLRepo
+    DirectorioDominio --> MySQLRepo
+    DonacionesDominio --> MySQLRepo
+```
+
+El diagrama muestra que las dependencias siguen siempre el mismo sentido (Presentación → Aplicación → Dominio → Infraestructura) y que ningún módulo de Dominio depende de otro módulo de Dominio directamente: cuando hace falta cruzar información entre dominios (por ejemplo, Moderación necesitando saber si un usuario es moderador), la comunicación pasa por la capa de Aplicación, nunca por acceso directo a los datos de otro módulo.
 
