@@ -174,7 +174,7 @@ Sí existen apps de mascotas perdidas en Argentina (adoptar.com.ar, MyPets, Resc
 
 \---
 
-### Actividad 2: Definición del stack tecnológico
+### Entrega 2: Definición del stack tecnológico
 
 #### 1\. Stack por capa
 
@@ -185,7 +185,6 @@ Sí existen apps de mascotas perdidas en Argentina (adoptar.com.ar, MyPets, Resc
 |Base de datos|MySQL|
 |Despliegue|Railway|
 
-**Repositorio del proyecto:** https://github.com/kguardia/TIF-Grupo159-GUARDIA-ORTELLADO.git
 
 #### 2\. ¿Por qué este stack y no otro?
 
