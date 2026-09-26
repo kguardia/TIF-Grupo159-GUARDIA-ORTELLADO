@@ -269,3 +269,12 @@ cómo se gestionan los roles, `ModeracionModule` no se ve afectado.
 | Base de datos | MySQL |
 | Autenticación | JWT + bcrypt |
 | Despliegue | Railway |
+
+
+## 5. Actividad 3 — Refinamiento con IA
+
+Para esta actividad se utilizó **Claude**, tanto para interpretar la consigna de la unidad como para generar una primera propuesta del diagrama entidad-relación y del listado de módulos, a partir de los requerimientos definidos en la primera entrega.
+
+Esa primera propuesta no se tomó como definitiva: se revisó críticamente contra las reglas de negocio del proyecto, ajustando puntos como la necesidad de un registro de auditoría de las acciones de moderación (`historial_moderacion`), el carácter opcional de la donación por caso (no todo caso publicado requiere ayuda económica) y el uso de `zona` como catálogo propio en lugar de texto libre, para sostener el crecimiento a otras zonas sin rediseñar el modelo (RNF04).
+
+Adicionalmente, con el documento de entrega ya armado, se realizó una segunda consulta a Claude para revisar que la entrega cubriera todo lo solicitado por la cátedra en esta unidad. Esa revisión permitió detectar que el uso de IA no estaba documentado en la primera versión del archivo, lo que llevó a incorporar esta misma sección.
