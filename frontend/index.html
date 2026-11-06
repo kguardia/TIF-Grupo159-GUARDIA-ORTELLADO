@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOS Patitas: ayuda para animales en la calle de CABA</title>
+<meta name="description" content="Publicá un animal que necesita ayuda en la calle. Un moderador verifica cada caso antes de mostrarlo.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-raiz="" data-pagina="inicio">
+
+<main id="contenido">
+  <section class="portada">
+    <div class="contenedor portada__grilla">
+      <div>
+        <h1>Si ves un animal que necesita ayuda en la calle, publicalo.</h1>
+        <p class="portada__lead">Un moderador verifica cada caso antes de mostrarlo, para que la ayuda llegue a donde hace falta.</p>
+        <div class="portada__acciones">
+          <a class="btn btn--grande" href="publicar.html">Publicar un caso</a>
+          <a class="btn btn--grande btn--sec" href="casos.html">Ver casos activos</a>
+        </div>
+        <p class="portada__nota">No hace falta crear una cuenta. Desde el celular se completa en pocos minutos.</p>
+      </div>
+      <div class="portada__vivo">
+        <h2>Casos críticos ahora</h2>
+        <div id="casos-criticos" aria-live="polite"></div>
+        <p style="margin-top:var(--e-3)"><a href="casos.html?nivel_urgencia=critica">Ver todos los casos críticos</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion seccion--papel" aria-labelledby="t-como">
+    <div class="contenedor">
+      <h2 id="t-como">Cómo funciona</h2>
+      <ol class="pasos">
+        <li><h3>Publicás el caso</h3><p>Contás qué le pasa al animal, dónde está y qué ayuda necesita. Podés sumar hasta tres fotos.</p></li>
+        <li><h3>Lo verifica un moderador</h3><p>Antes de mostrarse, una persona revisa que el caso sea real. Así evitamos estafas y pedidos falsos.</p></li>
+        <li><h3>Aparece en el listado</h3><p>Rescatistas, veterinarias y vecinos ven el caso, filtran por zona y coordinan la ayuda o donan.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion">
+    <div class="contenedor dos-cols">
+      <div>
+        <h2>¿Necesitás una veterinaria o un rescatista?</h2>
+        <p>El directorio reúne veterinarias que atienden las 24 horas y rescatistas, organizados por zona.</p>
+        <a class="btn btn--sec" href="directorio.html">Abrir el directorio</a>
+      </div>
+      <div>
+        <h2>¿Ya publicaste un caso?</h2>
+        <p>Con el código que te dimos podés ver si ya fue revisado, sin crear cuenta.</p>
+        <a class="btn btn--sec" href="seguimiento.html">Seguir mi caso</a>
+      </div>
+    </div>
+  </section>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="js/pages/inicio.js"></script>
+</body>
+</html>

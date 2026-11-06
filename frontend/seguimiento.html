@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seguir mi caso — SOS Patitas</title>
+<meta name="description" content="Consultá el estado de un caso que publicaste, con tu código de seguimiento.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-raiz="" data-pagina="seguimiento">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina"><h1>Seguir mi caso</h1><p>Escribí el código que te dimos al publicar. No hace falta iniciar sesión.</p></div>
+  <form id="form-seguimiento" class="form-ancho" novalidate>
+    <div data-resumen-errores></div>
+    <div class="campo">
+      <label for="codigo">Código del caso</label>
+      <div class="fila" style="flex-wrap:nowrap;align-items:stretch">
+        <input class="entrada" id="codigo" name="codigo" autocomplete="off" placeholder="PAT-7K3M9Q" style="max-width:14rem">
+        <button type="submit" class="btn">Ver estado</button>
+      </div>
+    </div>
+  </form>
+  <div id="resultado" aria-live="polite"></div>
+  <div id="recientes" class="form-ancho" style="margin-top:var(--e-6)"></div>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="js/pages/seguimiento.js"></script>
+</body>
+</html>

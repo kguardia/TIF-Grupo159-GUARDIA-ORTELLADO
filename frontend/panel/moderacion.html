@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moderación — SOS Patitas</title>
+<meta name="description" content="Cola de moderación de casos.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/pages.css">
+</head>
+<body data-raiz="../" data-pagina="panel-moderacion">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina"><h1>Moderación de casos</h1></div>
+  <div id="panel-nav"></div>
+  <div class="cab-seccion" style="align-items:center">
+    <div class="pestanas" id="pestanas" role="tablist" aria-label="Estado de los casos" style="margin:0;border:0;flex:1"></div>
+    <div class="campo" style="flex-direction:row;align-items:center;gap:var(--e-2)">
+      <label for="orden">Ordenar</label>
+      <select class="entrada" id="orden" style="width:auto"><option value="urgencia">Más urgentes primero</option><option value="antiguos">Más antiguos primero</option><option value="recientes">Más recientes primero</option></select>
+    </div>
+  </div>
+  <div id="tabla-casos" role="tabpanel" aria-live="polite"></div>
+  <dialog id="dialogo-caso" aria-labelledby="dialogo-titulo" style="width:min(100% - 2rem, 46rem)"><div id="dialogo-contenido"></div></dialog>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="../js/pages/mod-casos.js"></script>
+</body>
+</html>

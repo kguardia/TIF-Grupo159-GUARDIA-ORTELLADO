@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Directorio — SOS Patitas</title>
+<meta name="description" content="Veterinarias 24 horas y rescatistas de CABA, organizados por zona.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-raiz="" data-pagina="directorio">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina"><h1>Directorio</h1><p>Veterinarias y rescatistas por zona. Si es una urgencia, llamá primero a una guardia de 24 horas.</p></div>
+  <form id="filtros" class="filtros" role="search" aria-label="Filtrar el directorio">
+    <div class="campo"><label for="f-tipo">Tipo</label><select class="entrada" id="f-tipo" name="tipo"><option value="">Todos</option><option value="veterinaria">Veterinarias</option><option value="rescatista">Rescatistas</option></select></div>
+    <div class="campo"><label for="f-zona">Zona</label><select class="entrada" id="f-zona" name="zona_id"><option value="">Todas</option></select></div>
+    <div class="campo"><label style="display:flex;gap:var(--e-2);align-items:center;min-height:2.9rem;font-weight:700"><input type="checkbox" name="atencion_24hs" style="width:1.3rem;height:1.3rem"> Solo atención las 24 horas</label></div>
+  </form>
+  <p class="resultado-info" id="info-resultados" role="status" aria-live="polite"></p>
+  <div id="lista" aria-live="polite"></div>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="js/pages/directorio.js"></script>
+</body>
+</html>

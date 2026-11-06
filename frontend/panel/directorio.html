@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Directorio (panel) — SOS Patitas</title>
+<meta name="description" content="Alta, edición y baja de contactos del directorio.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/pages.css">
+</head>
+<body data-raiz="../" data-pagina="panel-directorio">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina"><h1>Directorio de contactos</h1><p>Las veterinarias y rescatistas no inician sesión: los carga el equipo.</p></div>
+  <div id="panel-nav"></div>
+  <p><button type="button" class="btn" id="agregar">Agregar contacto</button></p>
+  <div id="tabla" aria-live="polite"></div>
+
+  <dialog id="dialogo-contacto" aria-labelledby="titulo-contacto">
+    <form id="form-contacto" novalidate>
+      <div class="dialogo__cab"><h2 id="titulo-contacto"><span id="titulo-contacto-txt"></span></h2><button type="button" class="btn btn--sec btn--chico" data-cerrar>Cerrar</button></div>
+      <div class="dialogo__cuerpo">
+        <div data-resumen-errores></div>
+        <div class="campo"><label for="c-tipo">Tipo</label><select class="entrada" id="c-tipo" name="tipo"><option value="">Elegí una opción</option><option value="veterinaria">Veterinaria</option><option value="rescatista">Rescatista</option></select></div>
+        <div class="campo"><label for="c-nombre">Nombre</label><input class="entrada" id="c-nombre" name="nombre" maxlength="160"></div>
+        <div class="campo"><label for="c-tel">Teléfono</label><input class="entrada" id="c-tel" name="telefono" inputmode="tel" maxlength="40"></div>
+        <div class="campo"><label for="c-zona">Zona</label><select class="entrada" id="c-zona" name="zona_id"><option value="">Elegí la zona</option></select></div>
+        <div class="campo"><label for="c-esp">Especialidad <span class="opcional">(opcional)</span></label><input class="entrada" id="c-esp" name="especialidad" maxlength="120"></div>
+        <div class="campo"><label style="display:flex;gap:var(--e-2);align-items:center;font-weight:700"><input type="checkbox" name="atencion_24hs" style="width:1.3rem;height:1.3rem"> Atiende las 24 horas</label></div>
+      </div>
+      <div class="dialogo__pie"><button type="button" class="btn btn--sec" data-cerrar>Cancelar</button><button type="submit" class="btn">Guardar</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-borrar" aria-labelledby="titulo-borrar">
+    <div class="dialogo__cuerpo"><h2 id="titulo-borrar" style="font-size:var(--t-lg)">¿Eliminar este contacto?</h2><p style="margin:0">Se va a quitar a <strong id="borrar-nombre"></strong> del directorio público.</p></div>
+    <div class="dialogo__pie"><button type="button" class="btn btn--sec" data-cerrar>Cancelar</button><button type="button" class="btn btn--peligro" id="confirmar-borrar">Eliminar</button></div>
+  </dialog>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="../js/pages/mod-directorio.js"></script>
+</body>
+</html>

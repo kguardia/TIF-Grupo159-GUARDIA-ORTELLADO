@@ -1,0 +1,79 @@
+/* ==========================================================
+   SOS Patitas — tokens de diseño
+   Un solo lugar para colores, tipografía, espacios y radios.
+   ========================================================== */
+
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../assets/fonts/bricolage-grotesque-latin-wght-normal.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("../assets/fonts/atkinson-hyperlegible-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  /* Color base */
+  --tinta: #0f1f1d;          /* texto principal */
+  --tinta-suave: #44544f;    /* texto secundario (7.6:1 sobre bruma) */
+  --bruma: #edf1ef;          /* fondo de página */
+  --papel: #ffffff;          /* superficies */
+  --linea: #cfd8d4;          /* bordes */
+  --linea-fuerte: #9fb0aa;
+  --pino: #0e5a52;           /* acción principal */
+  --pino-oscuro: #0a423c;
+  --pino-claro: #d9ebe7;
+
+  /* Triage de urgencia: el color siempre va acompañado del texto */
+  --critica: #c4261d;
+  --critica-fondo: #fbe6e3;
+  --media: #8f5400;
+  --media-barra: #d98a00;
+  --media-fondo: #fcefd5;
+  --baja: #365f8a;
+  --baja-fondo: #e1ebf5;
+
+  /* Estados de moderación */
+  --ok: #1d6b3a;
+  --ok-fondo: #dff0e5;
+
+  /* Tipografía */
+  --fuente-titulo: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --fuente-texto: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+
+  --t-xs: 0.8125rem;
+  --t-sm: 0.9375rem;
+  --t-base: 1.0625rem;
+  --t-lg: 1.25rem;
+  --t-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --t-2xl: clamp(2rem, 1.4rem + 2.8vw, 3.25rem);
+
+  /* Espacios */
+  --e-1: 0.25rem;
+  --e-2: 0.5rem;
+  --e-3: 0.75rem;
+  --e-4: 1rem;
+  --e-5: 1.5rem;
+  --e-6: 2rem;
+  --e-7: 3rem;
+  --e-8: 4.5rem;
+
+  /* Radios: cada nivel de jerarquía tiene el suyo */
+  --r-campo: 6px;
+  --r-ficha: 4px 10px 10px 4px;
+  --r-panel: 12px;
+  --r-pastilla: 999px;
+
+  --ancho: 71rem;
+  --foco: 0 0 0 3px var(--papel), 0 0 0 5px var(--pino);
+}

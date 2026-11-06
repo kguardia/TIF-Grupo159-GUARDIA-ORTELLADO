@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Usuarios y zonas — SOS Patitas</title>
+<meta name="description" content="Alta de moderadores y gestión de zonas.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/tokens.css">
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/pages.css">
+</head>
+<body data-raiz="../" data-pagina="panel-usuarios">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina"><h1>Usuarios y zonas</h1></div>
+  <div id="panel-nav"></div>
+  <div class="pestanas" role="tablist" aria-label="Sección">
+    <button type="button" role="tab" data-tab="usuarios" aria-selected="true">Moderadores</button>
+    <button type="button" role="tab" data-tab="zonas" aria-selected="false">Zonas</button>
+  </div>
+
+  <section id="panel-usuarios" aria-label="Moderadores">
+    <p><button type="button" class="btn" id="nuevo-usuario">Agregar moderador</button></p>
+    <div id="tabla-usuarios" aria-live="polite"></div>
+  </section>
+  <section id="panel-zonas" aria-label="Zonas" hidden>
+    <p class="suave">Las zonas son los barrios o áreas que se pueden elegir al publicar un caso. Se pueden sumar nuevas sin tocar el sistema.</p>
+    <p><button type="button" class="btn" id="nueva-zona">Agregar zona</button></p>
+    <div id="tabla-zonas" aria-live="polite"></div>
+  </section>
+
+  <dialog id="dialogo-usuario" aria-labelledby="titulo-usuario">
+    <form id="form-usuario" novalidate>
+      <div class="dialogo__cab"><h2 id="titulo-usuario">Agregar moderador</h2><button type="button" class="btn btn--sec btn--chico" data-cerrar>Cerrar</button></div>
+      <div class="dialogo__cuerpo">
+        <div data-resumen-errores></div>
+        <div class="campo"><label for="u-nombre">Nombre</label><input class="entrada" id="u-nombre" name="nombre" maxlength="120"></div>
+        <div class="campo"><label for="u-email">Email</label><input class="entrada" id="u-email" name="email" type="email" inputmode="email" autocomplete="off"></div>
+        <div class="campo"><label for="u-pass">Contraseña inicial</label><input class="entrada" id="u-pass" name="password" type="password" autocomplete="new-password" aria-describedby="u-pass-ayuda"><p class="ayuda" id="u-pass-ayuda">Mínimo 8 caracteres. Compartila por un canal seguro.</p></div>
+      </div>
+      <div class="dialogo__pie"><button type="button" class="btn btn--sec" data-cerrar>Cancelar</button><button type="submit" class="btn">Crear moderador</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="dialogo-zona" aria-labelledby="titulo-zona">
+    <form id="form-zona" novalidate>
+      <div class="dialogo__cab"><h2 id="titulo-zona">Agregar zona</h2><button type="button" class="btn btn--sec btn--chico" data-cerrar>Cerrar</button></div>
+      <div class="dialogo__cuerpo">
+        <div data-resumen-errores></div>
+        <div class="campo"><label for="z-nombre">Nombre de la zona</label><input class="entrada" id="z-nombre" name="nombre" maxlength="80"></div>
+      </div>
+      <div class="dialogo__pie"><button type="button" class="btn btn--sec" data-cerrar>Cancelar</button><button type="submit" class="btn">Guardar</button></div>
+    </form>
+  </dialog>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="../js/pages/mod-usuarios.js"></script>
+</body>
+</html>

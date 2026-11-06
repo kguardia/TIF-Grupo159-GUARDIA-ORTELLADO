@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casos activos — SOS Patitas</title>
+<meta name="description" content="Casos verificados de animales que necesitan ayuda en CABA, con filtros por zona, urgencia y tipo de ayuda.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+</head>
+<body data-raiz="" data-pagina="casos">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina cab-seccion">
+    <div><h1>Casos activos</h1><p>Solo se muestran casos que un moderador ya verificó.</p></div>
+    <div class="vista-toggle" id="vista-toggle" role="group" aria-label="Forma de ver los casos">
+      <button type="button" data-vista="lista" aria-pressed="true">Lista</button>
+      <button type="button" data-vista="mapa" aria-pressed="false">Mapa</button>
+    </div>
+  </div>
+  <form id="filtros" class="filtros" role="search" aria-label="Filtrar casos">
+    <div class="campo"><label for="f-zona">Zona</label><select class="entrada" id="f-zona" name="zona_id"><option value="">Todas</option></select></div>
+    <div class="campo"><label for="f-urg">Urgencia</label><select class="entrada" id="f-urg" name="nivel_urgencia"><option value="">Todas</option><option value="critica">Crítica</option><option value="media">Media</option><option value="baja">Baja</option></select></div>
+    <div class="campo"><label for="f-ayuda">Ayuda que necesita</label><select class="entrada" id="f-ayuda" name="tipo_ayuda"><option value="">Todos</option><option value="veterinaria">Atención veterinaria</option><option value="traslado">Traslado</option><option value="alimento">Alimento</option><option value="otro">Otra ayuda</option></select></div>
+    <div class="campo"><label for="f-q">Buscar en la descripción</label><input class="entrada" id="f-q" name="q" type="search" autocomplete="off" placeholder="Por ejemplo: gatitos"></div>
+    <div class="campo"><button type="button" class="btn btn--sec" data-limpiar-todo>Quitar filtros</button></div>
+  </form>
+  <p class="resultado-info" id="info-resultados" role="status" aria-live="polite"></p>
+  <div id="lista" aria-live="polite"></div>
+  <div id="mapa" class="mapa" role="region" aria-label="Mapa de casos" hidden></div>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script src="vendor/leaflet/leaflet.js"></script>
+<script type="module" src="js/pages/casos.js"></script>
+</body>
+</html>

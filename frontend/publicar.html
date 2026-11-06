@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Publicar un caso — SOS Patitas</title>
+<meta name="description" content="Publicá un animal que necesita ayuda. No hace falta cuenta.">
+<meta name="theme-color" content="#0e5a52">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/pages.css">
+</head>
+<body data-raiz="" data-pagina="publicar">
+
+<main id="contenido" class="contenedor">
+  <div class="encabezado-pagina">
+    <h1>Publicar un caso</h1>
+    <p>No hace falta crear una cuenta. Un moderador lo va a revisar antes de que sea público.</p>
+  </div>
+  <div id="contenido-form" class="form-ancho">
+  <form id="form-caso" class="form-caja" novalidate>
+    <div data-resumen-errores></div>
+
+    <div class="form-bloque">
+      <h2>El animal</h2>
+      <div class="campo">
+        <label for="tipo_animal">¿Qué animal es?</label>
+        <input class="entrada" id="tipo_animal" name="tipo_animal" list="animales" autocomplete="off" maxlength="60" placeholder="Perro, gato, cachorros…">
+        <datalist id="animales"><option value="Perro"><option value="Gato"><option value="Cachorros"><option value="Gatitos"><option value="Perra con cría"><option value="Gata con cría"></datalist>
+      </div>
+      <div class="campo">
+        <label for="descripcion">¿Qué le pasa y dónde está?</label>
+        <textarea class="entrada" id="descripcion" name="descripcion" rows="5" aria-describedby="ayuda-desc" maxlength="2000"></textarea>
+        <p class="ayuda" id="ayuda-desc">Incluí la calle, la altura o una referencia cercana, y cómo está el animal.</p>
+      </div>
+      <div class="campo">
+        <label for="zona_id">Zona</label>
+        <select class="entrada" id="zona_id" name="zona_id"><option value="">Elegí la zona</option></select>
+      </div>
+      <div id="bloque-ubicacion" class="campo">
+        <span class="ayuda"><strong>Ubicación exacta</strong> <span class="opcional">(opcional)</span>. Si estás junto al animal, el caso aparece en el mapa.</span>
+        <div class="fila">
+          <button type="button" class="btn btn--sec btn--chico" id="usar-ubicacion">Usar mi ubicación actual</button>
+          <button type="button" class="btn btn--texto btn--chico" id="quitar-ubicacion" hidden>Quitar ubicación</button>
+        </div>
+        <p class="ayuda" id="ubicacion-estado" role="status"></p>
+        <input type="hidden" name="latitud"><input type="hidden" name="longitud">
+      </div>
+    </div>
+
+    <div class="form-bloque">
+      <h2>La ayuda que necesita</h2>
+      <fieldset class="grupo">
+        <legend>¿Qué tan urgente es?</legend>
+        <div class="opciones">
+          <label class="opcion opcion--critica"><input type="radio" name="nivel_urgencia" value="critica"><span>Crítica</span></label>
+          <label class="opcion opcion--media"><input type="radio" name="nivel_urgencia" value="media"><span>Media</span></label>
+          <label class="opcion opcion--baja"><input type="radio" name="nivel_urgencia" value="baja"><span>Baja</span></label>
+        </div>
+        <p class="ayuda" style="margin-top:var(--e-2)">Crítica: herido grave, en peligro ahora. Media: necesita ayuda en los próximos días. Baja: puede esperar.</p>
+      </fieldset>
+      <fieldset class="grupo">
+        <legend>¿Qué ayuda hace falta?</legend>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="tipo_ayuda" value="veterinaria"><span>Atención veterinaria</span></label>
+          <label class="opcion"><input type="radio" name="tipo_ayuda" value="traslado"><span>Traslado</span></label>
+          <label class="opcion"><input type="radio" name="tipo_ayuda" value="alimento"><span>Alimento</span></label>
+          <label class="opcion"><input type="radio" name="tipo_ayuda" value="otro"><span>Otra ayuda</span></label>
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="form-bloque">
+      <h2>Fotos</h2>
+      <div class="campo">
+        <span class="ayuda">Ayudan a que el moderador verifique el caso. Hasta 3 fotos, de 5 MB cada una <span class="opcional">(opcional)</span>.</span>
+        <label class="subir">Elegir o sacar fotos<input class="solo-lector" type="file" id="fotos" accept="image/*" multiple></label>
+        <p class="ayuda" id="fotos-contador" aria-live="polite"></p>
+        <div class="fotos" id="fotos-prev"></div>
+      </div>
+    </div>
+
+    <div class="form-bloque">
+      <h2>Tu contacto</h2>
+      <div class="campo">
+        <label for="contacto_publicante">Teléfono, email o usuario de red social</label>
+        <input class="entrada" id="contacto_publicante" name="contacto_publicante" autocomplete="tel" maxlength="160" aria-describedby="ayuda-contacto">
+        <p class="ayuda" id="ayuda-contacto">Es obligatorio. El moderador lo usa para verificar el caso, y se muestra en la publicación para que quien quiera ayudar pueda coordinar con vos.</p>
+      </div>
+    </div>
+
+    <div class="form-acciones">
+      <button type="submit" class="btn btn--grande" id="enviar">Enviar el caso</button>
+      <a class="btn btn--texto" href="index.html">Cancelar</a>
+    </div>
+  </form>
+  </div>
+</main>
+<noscript><div class="contenedor seccion"><div class="aviso aviso--alerta"><p>SOS Patitas necesita JavaScript para funcionar. Activalo en tu navegador y recargá la página.</p></div></div></noscript>
+<script type="module" src="js/pages/publicar.js"></script>
+</body>
+</html>
