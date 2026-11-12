@@ -7,10 +7,10 @@ export const CONFIG = {
    * true  → usa datos de prueba guardados en el navegador (no hace falta backend).
    * false → habla con la API de NestJS en API_URL.
    */
-  USE_MOCK: true,
+  USE_MOCK: false,
 
   /** URL base del backend (en Railway, algo como https://sos-patitas.up.railway.app). */
-  API_URL: "http://localhost:3000",
+  API_URL: "https://tif-grupo159-guardia-ortellado-production.up.railway.app",
 
   /**
    * Mapa y ubicación exacta. El esquema de base de datos aprobado todavía no tiene
