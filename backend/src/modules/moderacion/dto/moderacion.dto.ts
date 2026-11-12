@@ -10,7 +10,7 @@ export class CambiarEstadoDto {
   @VacioANulo()
   @IsOptional()
   @IsString()
-  @MaxLength(255, { message: 'El motivo puede tener hasta 255 caracteres.' })
+  @MaxLength(350, { message: 'El motivo puede tener hasta 350 caracteres.' })
   motivo?: string | null;
 }
 
