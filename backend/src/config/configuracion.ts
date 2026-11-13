@@ -48,8 +48,11 @@ export function cargarConfiguracion(env: NodeJS.ProcessEnv = process.env): Confi
     throw new Error(`Configuración inválida:\n - ${errores.join('\n - ')}`);
   }
 
-  const origenes = (env.CORS_ORIGINS ?? 'http://localhost:8080').split(',').map((o) => quitarBarra(o.trim())).filter(Boolean);
-
+  const origenes = (env.CORS_ORIGINS ?? 'http://localhost:8080,http://localhost:5500,http://127.0.0.1:5500')
+    .split(',')
+    .map((o) => quitarBarra(o.trim()))
+    .filter(Boolean);
+    
   return {
     entorno: env.NODE_ENV ?? 'development',
     puerto,
