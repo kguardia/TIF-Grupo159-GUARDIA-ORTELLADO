@@ -28,8 +28,16 @@
       <h2>El animal</h2>
       <div class="campo">
         <label for="tipo_animal">¿Qué animal es?</label>
-        <input class="entrada" id="tipo_animal" name="tipo_animal" list="animales" autocomplete="off" maxlength="60" placeholder="Perro, gato, cachorros…">
-        <datalist id="animales"><option value="Perro"><option value="Gato"><option value="Cachorros"><option value="Gatitos"><option value="Perra con cría"><option value="Gata con cría"></datalist>
+        <select class="entrada" id="tipo_animal" name="tipo_animal">
+          <option value="">Elegí una opción</option>
+          <option value="Perro/a">Perro/a</option>
+          <option value="Gato/a">Gato/a</option>
+          <option value="Cachorros">Cachorros</option>
+          <option value="Gatitos">Gatitos</option>
+          <option value="Perra embarazada o con cría/s">Perra embarazada o con cría/s</option>
+          <option value="Gata embarazada o con cría/s">Gata embarazada o con cría/s</option>
+          <option value="Otro (fauna silvestre o exótica)">Otro (fauna silvestre o exótica)</option>
+        </select>
       </div>
       <div class="campo">
         <label for="descripcion">¿Qué le pasa y dónde está?</label>

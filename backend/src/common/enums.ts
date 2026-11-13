@@ -1,4 +1,5 @@
 /** Valores permitidos: coinciden exactamente con los ENUM de database/schema.sql. */
+export const TIPOS_ANIMAL = ['Perro/a','Gato/a','Cachorros','Gatitos','Perra embarazada o con cría/s','Gata embarazada o con cría/s','Otro (fauna silvestre o exótica)'] as const;
 export const NIVELES_URGENCIA = ['critica', 'media', 'baja'] as const;
 export const TIPOS_AYUDA = ['veterinaria', 'traslado', 'alimento', 'otro'] as const;
 export const ESTADOS_CASO = ['pendiente', 'en_revision', 'aprobado', 'rechazado', 'resuelto'] as const;

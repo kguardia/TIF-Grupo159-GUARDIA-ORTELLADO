@@ -1,16 +1,14 @@
 import { Type } from 'class-transformer';
 import { IsIn, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, Max, MaxLength, Min, MinLength } from 'class-validator';
-import { NIVELES_URGENCIA, TIPOS_AYUDA } from '../../../common/enums';
+import { NIVELES_URGENCIA, TIPOS_ANIMAL, TIPOS_AYUDA } from '../../../common/enums';
 import { ContactoValido } from '../../../common/utils/contacto';
 import { NumeroONulo, Recortar } from '../../../common/utils/transformadores';
 
 /** RF01: lo que cualquier persona puede enviar sin registrarse. */
 export class CrearCasoDto {
   @Recortar()
-  @IsString({ message: 'Indicá qué animal es (perro, gato…).' })
-  @IsNotEmpty({ message: 'Indicá qué animal es (perro, gato…).' })
-  @MaxLength(60, { message: 'El tipo de animal puede tener hasta 60 caracteres.' })
-  tipo_animal: string;
+  @IsIn(TIPOS_ANIMAL, { message: 'Indicá qué tipo de animal es...' })
+  tipo_animal: (typeof TIPOS_ANIMAL)[number];
 
   @Recortar()
   @IsString({ message: 'Contanos qué le pasa y dónde está.' })

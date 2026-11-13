@@ -98,6 +98,16 @@ function codigoNuevo(bd) {
   return codigo;
 }
 
+const TIPOS_ANIMAL_VALIDOS = [
+  "Perro/a",
+  "Gato/a",
+  "Cachorros",
+  "Gatitos",
+  "Perra embarazada o con cría/s",
+  "Gata embarazada o con cría/s",
+  "Otro (fauna silvestre o exótica)",
+];
+
 /* ================= API ================= */
 export const apiMock = {
   reiniciar() {
@@ -145,7 +155,7 @@ export const apiMock = {
     async publicar(datos, fotos = []) {
       const bd = cargar();
       const errores = {};
-      if (!datos.tipo_animal) errores.tipo_animal = "Indicá qué animal es.";
+      if (!TIPOS_ANIMAL_VALIDOS.includes(datos.tipo_animal)) errores.tipo_animal = "Elegí qué animal es.";
       if (!datos.descripcion || datos.descripcion.length < 20) errores.descripcion = "Contanos un poco más (mínimo 20 caracteres).";
       if (!ORDEN_URG.hasOwnProperty(datos.nivel_urgencia)) errores.nivel_urgencia = "Elegí qué tan urgente es.";
       if (!datos.tipo_ayuda) errores.tipo_ayuda = "Elegí qué ayuda necesita.";

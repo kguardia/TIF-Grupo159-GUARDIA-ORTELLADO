@@ -81,7 +81,7 @@ if (!CONFIG.USAR_COORDENADAS || !("geolocation" in navigator)) {
 /* ---------- Validación y envío ---------- */
 function validar() {
   const e = {};
-  if (!textoDe(form, "tipo_animal")) e.tipo_animal = "Indicá qué animal es (perro, gato…).";
+  if (!form.elements.tipo_animal.value) e.tipo_animal = "Indicá qué tipo de animal es...";
   if (textoDe(form, "descripcion").length < 20) e.descripcion = "Contanos un poco más: qué le pasa y dónde está (mínimo 20 caracteres).";
   if (!form.elements.nivel_urgencia.value) e.nivel_urgencia = "Elegí qué tan urgente es.";
   if (!form.elements.tipo_ayuda.value) e.tipo_ayuda = "Elegí qué tipo de ayuda necesita.";
@@ -98,7 +98,7 @@ form.addEventListener("submit", async (ev) => {
   if (!mostrarErrores(form, errores)) return;
 
   const datos = {
-    tipo_animal: textoDe(form, "tipo_animal"),
+    tipo_animal: form.elements.tipo_animal.value,
     descripcion: textoDe(form, "descripcion"),
     nivel_urgencia: form.elements.nivel_urgencia.value,
     tipo_ayuda: form.elements.tipo_ayuda.value,
@@ -160,6 +160,9 @@ form.addEventListener("input", (e) => {
 form.addEventListener("change", (e) => {
   if (e.target.type === "radio") {
     $$(`[name="${e.target.name}"]`, form).forEach((r) => r.removeAttribute("aria-invalid"));
+    document.getElementById(`err-${e.target.name}`)?.remove();
+  } else if (e.target.tagName === "SELECT" && e.target.getAttribute("aria-invalid") === "true") {
+    e.target.removeAttribute("aria-invalid");
     document.getElementById(`err-${e.target.name}`)?.remove();
   }
 });

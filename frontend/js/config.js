@@ -10,7 +10,9 @@ export const CONFIG = {
   USE_MOCK: false,
 
   /** URL base del backend (en Railway, algo como https://sos-patitas.up.railway.app). */
-  API_URL: "https://tif-grupo159-guardia-ortellado-production.up.railway.app",
+  API_URL: ["localhost", "127.0.0.1"].includes(location.hostname)
+  ? "http://localhost:3000"
+  : "https://tif-grupo159-guardia-ortellado-production.up.railway.app",
 
   /**
    * Mapa y ubicación exacta. El esquema de base de datos aprobado todavía no tiene
